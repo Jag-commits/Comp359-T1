@@ -1,4 +1,4 @@
-from UnionFind import *
+from unionfind import *
 import random
 class Node:
         def __init__(self,n):
@@ -80,8 +80,8 @@ def buildGraph(n=int, c=int,x=int, y=int):
         availableNeighbor = checkWalls(currentNode)
         if availableNeighbor ==None: continue
         neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
-        if uf.Find(currentNode.n)!=uf.Find(neighborNum.n):
-            uf.Union(currentNode.n,neighborNum.n)
+        if uf.find(currentNode.n)!=uf.find(neighborNum.n):
+            uf.union(currentNode.n,neighborNum.n)
             print(f"Union with {currentNode.n},{neighborNum.n}")
             connectedRegions-=1
         
