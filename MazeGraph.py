@@ -1,4 +1,4 @@
-from Quickfind import QuickFind
+from implementations.Quickfind import QuickFind
 import random
 import queue
 class Node:

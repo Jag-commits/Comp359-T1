@@ -1,4 +1,6 @@
-from UnionFindAbtract import Template # abstract base class template
+from .UnionFindAbtract import Template
+# abstract base class template
+# run like python -m implementations.Quickfind if you want to run the main
 ## quick find implementation
 
 
