@@ -1,4 +1,4 @@
-from UnionFind import *
+from Quickfind import QuickFind
 import random
 import queue
 class Node:
@@ -81,7 +81,7 @@ def buildGraph(n=int, c=int,x=int, y=int):
         gridBoxes[rowlength]=rowValue
 
     # ______________________Replace this with what the actual UnionFind returns______________________
-    uf = UnionFind(numBoxes)
+    uf = QuickFind(numBoxes)
   
     
     while c < connectedRegions:
@@ -91,9 +91,9 @@ def buildGraph(n=int, c=int,x=int, y=int):
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
-        if uf.Find(currentNode.n)!=uf.Find(neighborNum.n):
+        if uf.find(currentNode.n)!=uf.find(neighborNum.n):
             openWalls(currentNode,checkWallsResult["Cardinal"])
-            uf.Union(currentNode.n,neighborNum.n)
+            uf.union(currentNode.n,neighborNum.n)
             print(f"Union with {currentNode.n},{neighborNum.n}")
 
             
