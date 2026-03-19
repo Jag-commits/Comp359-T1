@@ -1,4 +1,5 @@
 from implementations.Quickfind import QuickFind
+from implementations import *
 import random
 import queue
 class Node:
@@ -54,9 +55,9 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
     
 
 
-#n= selecting randomized variable, c = connected regions, x = width, y = length
+#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
 # Index = Node.n; n: 0-> X*Y
-def buildGraph(n=int, c=int,x=int, y=int):
+def buildGraph(ufClass, n=int, c=int,x=int, y=int):
     output = queue.Queue()
     numBoxes = x*y 
     connectedRegions = numBoxes
@@ -80,8 +81,8 @@ def buildGraph(n=int, c=int,x=int, y=int):
             
         gridBoxes[rowlength]=rowValue
 
-    # ______________________Replace this with what the actual UnionFind returns______________________
-    uf = QuickFind(numBoxes)
+    # It should not dynamically adjust to whichever implementation was inputted
+    uf = ufClass(numBoxes)
   
     
     while c < connectedRegions:
@@ -112,5 +113,4 @@ for reference:
 8 9 10 11
 12 13 14 15
 """
-x= buildGraph(10,5,4,4)  #should be 4 arrays of 4 elements
-
+x= buildGraph(QuickFind,10,5,4,4)  #should be 4 arrays of 4 elements
