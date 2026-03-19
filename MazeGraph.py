@@ -5,7 +5,7 @@ import queue
 class Node:
         def __init__(self,n):
             #Index
-            self.n = n
+            self.index = n
            
 
             #cardinal directions represent the walls. 0 = Open, 1 = Closed, -1 = Edge
@@ -56,7 +56,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 
 
 #ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
-# Index = Node.n; n: 0-> X*Y
+# Index = Node.index; index: 0-> X*Y
 def buildGraph(ufClass, n=int, c=int,x=int, y=int):
     output = queue.Queue()
     numBoxes = x*y 
@@ -81,7 +81,7 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int):
             
         gridBoxes[rowlength]=rowValue
 
-    # It should not dynamically adjust to whichever implementation was inputted
+    # It should dynamically adjust to whichever implementation was inputted
     uf = ufClass(numBoxes)
   
     
@@ -92,12 +92,10 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int):
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
-        if uf.find(currentNode.n)!=uf.find(neighborNum.n):
+        if uf.find(currentNode.index)!=uf.find(neighborNum.index):
             openWalls(currentNode,checkWallsResult["Cardinal"])
-            uf.union(currentNode.n,neighborNum.n)
-            print(f"Union with {currentNode.n},{neighborNum.n}")
-
-            
+            uf.union(currentNode.index,neighborNum.index)
+            print(f"Union with {currentNode.index},{neighborNum.index}")
             output.put(currentNode)
             connectedRegions-=1
     
