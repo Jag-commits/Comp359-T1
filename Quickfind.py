@@ -1,8 +1,9 @@
+from UnionFindAbtract import Template # abstract base class template
 ## quick find implementation
 
 
-class quickfind:
-    def __init__(self, n):
+class QuickFind(Template):
+    def __init__(self, n: int):
         self.id = list(range(n)) 
 
     def find (self,p):
@@ -11,7 +12,7 @@ class quickfind:
     def connected(self, p, q):
         return self.find(p) == self.find(q) #true if connected
     
-    def union(self, p, q):
+    def union(self, p: int, q: int) -> None:
         pid = self.find(p)
         qid = self.find(q)
 
@@ -20,9 +21,11 @@ class quickfind:
                 self.id[i] = qid
 
 
-uf = quickfind(7)
-uf.union(1,2)
-uf.union(2,5)
-print(uf.id)
-print(uf.connected(1,2))
-print(uf.connected(1,4))
+if __name__ == "__main__":
+    uf = QuickFind(7)
+    uf.union(1, 2)
+    uf.union(2, 5)
+    print(uf.id)
+    print(uf.connected(1, 2))
+    print(uf.connected(1, 4))
+    print("test")
