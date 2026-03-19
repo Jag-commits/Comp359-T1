@@ -1,56 +1,65 @@
 from UnionFind import *
 import random
+import queue
 class Node:
         def __init__(self,n):
+            #Index
             self.n = n
-            #cardinal directions represent the walls
-            #Maybe set the cardinal directions to the index they're connected to?
+           
 
-            #If we set these to be the carinal directions, then you can delete the associated index to represent an open wall.
+            #cardinal directions represent the walls. 0 = Open, 1 = Closed, -1 = Edge
             self.N=1
             self.S=1
             self.W=1
             self.E=1
 
-            #Have to be coordinates of i,j
+            #coordinates of i,j
             self.NIndex=(0,0)
             self.SIndex=(0,0)
             self.WIndex=(0,0)
             self.EIndex=(0,0)
 
-
+#Check for avaialable walls, send coordinates and Cardinal Dir
 def checkWalls(currentNode):
     if currentNode.N==1:
-        currentNode.N= 0
-        return currentNode.NIndex
+        return {"coord": currentNode.NIndex, "Cardinal" :"N"}
     elif currentNode.S==1:
-        currentNode.S= 0
-        return currentNode.SIndex
-    elif currentNode.E==1:
-        currentNode.E= 0
-        return currentNode.EIndex
-    elif currentNode.W==1:
-        currentNode.W= 0
-        return currentNode.WIndex
+        return {"coord": currentNode.SIndex, "Cardinal" :"S"}
+    elif currentNode.E==1: 
+        return {"coord": currentNode.EIndex, "Cardinal" :"E"}
+    elif currentNode.W==1: 
+        return {"coord": currentNode.WIndex, "Cardinal" :"W"}
     return None
+
+
+def openWalls(currentNode=Node,Cardinal=str):
+    if Cardinal == "N":
+        currentNode.N= 0
+    elif Cardinal == "S":
+        currentNode.S= 0
+    elif Cardinal == "E":
+        currentNode.E= 0
+    elif Cardinal == "W":
+        currentNode.W= 0
+    else:
+        print("Error: No Valid Cardinal")
+    
 
 #If the node is on the edge of the matrix, it cannot have the associated neighbor
 def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col 
-    if rowlength==(y-1): currentNode.S=0
-    if rowlength==0: currentNode.N =0
-    if columnlength==(x-1): currentNode.E=0
-    if columnlength==0: currentNode.W =0
+    if rowlength==(y-1): currentNode.S=-1
+    if rowlength==0: currentNode.N =-1
+    if columnlength==(x-1): currentNode.E=-1
+    if columnlength==0: currentNode.W =-1
+    
 
 
-
-    #Needs to output array with node positions and what they're connected to ie retain position data
-    #So maybe create an adjacency list that represents what nodes it's connected to from the norht, south, east west?
+#n= selecting randomized variable, c = connected regions, x = width, y = length
+# Index = Node.n; n: 0-> X*Y
 def buildGraph(n=int, c=int,x=int, y=int):
+    output = queue.Queue()
     numBoxes = x*y 
-    #How to determine the number of connected regions?
     connectedRegions = numBoxes
-    #The plan was to make some sort of randomized picker for the walls of a grid between the node and another node
-
     #Create the boxes themselves -> 2d Matrix
     currentNum = 0
     gridBoxes = [None]*y # y = num of rows
@@ -68,34 +77,40 @@ def buildGraph(n=int, c=int,x=int, y=int):
 
             rowValue[columnlength]=(currentNode)
             currentNum+=1
+            
         gridBoxes[rowlength]=rowValue
 
     # ______________________Replace this with what the actual UnionFind returns______________________
     uf = UnionFind(numBoxes)
-
-    #Maybe loop until you get all the connected regions made?
+  
+    
     while c < connectedRegions:
         randomX,randomY  = random.randint(0,(x)-1), random.randint(0,(y)-1)
         currentNode = gridBoxes[randomX][randomY]
-        availableNeighbor = checkWalls(currentNode)
-        if availableNeighbor ==None: continue
+        checkWallsResult = checkWalls(currentNode)
+        if checkWallsResult ==None: continue
+        availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
         if uf.Find(currentNode.n)!=uf.Find(neighborNum.n):
+            openWalls(currentNode,checkWallsResult["Cardinal"])
             uf.Union(currentNode.n,neighborNum.n)
             print(f"Union with {currentNode.n},{neighborNum.n}")
+
+            
+            output.put(currentNode)
             connectedRegions-=1
-        
-        
-
-
-
-    #So each ID 0->N represents the object
-
-    #The UnionFind is just a check, the array is what you really want
-
-    #note: Pick node at random, look at avaialble wall and that is the node you want to connect to
     
-buildGraph(10,5,4,4)  #should be 10 arrays of 10 elements
+    return output
 
-# Return should be an adjacency list of all the nodes and what connection exists between the node and it's NSWE Node: N,S,W,E
- 
+
+
+"""
+for reference: 
+
+0 1 2 3
+4 5 6 7
+8 9 10 11
+12 13 14 15
+"""
+x= buildGraph(10,5,4,4)  #should be 4 arrays of 4 elements
+
