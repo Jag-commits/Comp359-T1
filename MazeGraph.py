@@ -108,7 +108,8 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=Fal
             output.put(currentNode)
             connectedRegions-=1
     if outputArray:
-        return gridBoxes
+        #Return both the 2D array and the Queue
+        return {"Queue":output, "List":gridBoxes}
     return output
 
 
@@ -123,6 +124,7 @@ for reference:
 """
 if __name__ == "__main__":
     x= buildGraph("QuickFind",10,5,4,4, verbose=True,outputArray=True)  #should be 4 arrays of 4 elements
+    x=x["List"]
     for i in range(4):
         for j in range(4):
             print(x[i][j].index)
