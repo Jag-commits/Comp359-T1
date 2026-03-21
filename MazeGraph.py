@@ -1,10 +1,10 @@
-from implementations.Quickfind import QuickFind
+from implementations.registry import get_uf_class
 import random
 import queue
 class Node:
         def __init__(self,n):
             #Index
-            self.n = n
+            self.index = n
            
 
             #cardinal directions represent the walls. 0 = Open, 1 = Closed, -1 = Edge
@@ -54,9 +54,9 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
     
 
 
-#n= selecting randomized variable, c = connected regions, x = width, y = length
-# Index = Node.n; n: 0-> X*Y
-def buildGraph(n=int, c=int, x=int, y=int, verbose=False):
+#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
+# Index = Node.index; index: 0-> X*Y
+def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
     output = queue.Queue()
     numBoxes = x*y 
     connectedRegions = numBoxes
@@ -80,8 +80,13 @@ def buildGraph(n=int, c=int, x=int, y=int, verbose=False):
             
         gridBoxes[rowlength]=rowValue
 
-    # ______________________Replace this with what the actual UnionFind returns______________________
-    uf = QuickFind(numBoxes)
+    # registry key to class
+    if isinstance(ufClass, str):
+        ufClass = get_uf_class(ufClass)
+
+    # this changes which union find we are using
+    uf = ufClass(numBoxes)
+    print("Using UF class:", uf.__class__.__name__)
   
     
     while c < connectedRegions:
@@ -91,13 +96,11 @@ def buildGraph(n=int, c=int, x=int, y=int, verbose=False):
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
-        if uf.find(currentNode.n)!=uf.find(neighborNum.n):
+        if uf.find(currentNode.index)!=uf.find(neighborNum.index):
             openWalls(currentNode,checkWallsResult["Cardinal"])
-            uf.union(currentNode.n,neighborNum.n)
+            uf.union(currentNode.index,neighborNum.index)
             if verbose:
-                print(f"Union with {currentNode.n},{neighborNum.n}")
-
-            
+                print(f"Union with {currentNode.index},{neighborNum.index}")
             output.put(currentNode)
             connectedRegions-=1
     
@@ -114,5 +117,4 @@ for reference:
 12 13 14 15
 """
 if __name__ == "__main__":
-    x = buildGraph(10, 5, 4, 4, verbose=True)  # should be 4 arrays of 4 elements
-
+    x= buildGraph("QuickFind",10,5,4,4, verbose=True)  #should be 4 arrays of 4 elements
