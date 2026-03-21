@@ -32,15 +32,19 @@ def checkWalls(currentNode):
     return None
 
 
-def openWalls(currentNode=Node,Cardinal=str):
+def openWalls(currentNode:Node,neighborNode:Node,Cardinal:str):
     if Cardinal == "N":
         currentNode.N= 0
+        neighborNode.S=0
     elif Cardinal == "S":
         currentNode.S= 0
+        neighborNode.N=0
     elif Cardinal == "E":
         currentNode.E= 0
+        neighborNode.W=0
     elif Cardinal == "W":
         currentNode.W= 0
+        neighborNode.E=0
     else:
         print("Error: No Valid Cardinal")
     
@@ -54,9 +58,9 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
     
 
 
-#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
+#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length, outputArray = return 2d array instead of Queue
 # Index = Node.index; index: 0-> X*Y
-def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
+def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=False):
     output = queue.Queue()
     numBoxes = x*y 
     connectedRegions = numBoxes
@@ -91,19 +95,20 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
     
     while c < connectedRegions:
         randomX,randomY  = random.randint(0,(x)-1), random.randint(0,(y)-1)
-        currentNode = gridBoxes[randomX][randomY]
+        currentNode = gridBoxes[randomY][randomX]
         checkWallsResult = checkWalls(currentNode)
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
-        neighborNum = gridBoxes[availableNeighbor[0]][availableNeighbor[1]]
+        neighborNum = gridBoxes[availableNeighbor[1]][availableNeighbor[0]]
         if uf.find(currentNode.index)!=uf.find(neighborNum.index):
-            openWalls(currentNode,checkWallsResult["Cardinal"])
+            openWalls(currentNode,neighborNum,checkWallsResult["Cardinal"])
             uf.union(currentNode.index,neighborNum.index)
             if verbose:
                 print(f"Union with {currentNode.index},{neighborNum.index}")
             output.put(currentNode)
             connectedRegions-=1
-    
+    if outputArray:
+        return gridBoxes
     return output
 
 
@@ -117,4 +122,8 @@ for reference:
 12 13 14 15
 """
 if __name__ == "__main__":
-    x= buildGraph("QuickFind",10,5,4,4, verbose=True)  #should be 4 arrays of 4 elements
+    x= buildGraph("QuickFind",10,5,4,4, verbose=True,outputArray=True)  #should be 4 arrays of 4 elements
+    for i in range(4):
+        for j in range(4):
+            print(x[i][j].index)
+            print(f"{x[i][j].N},{x[i][j].S},{x[i][j].E},{x[i][j].W}")
