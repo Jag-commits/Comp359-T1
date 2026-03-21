@@ -56,7 +56,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 
 #n= selecting randomized variable, c = connected regions, x = width, y = length
 # Index = Node.n; n: 0-> X*Y
-def buildGraph(n=int, c=int,x=int, y=int):
+def buildGraph(n=int, c=int, x=int, y=int, verbose=False):
     output = queue.Queue()
     numBoxes = x*y 
     connectedRegions = numBoxes
@@ -94,7 +94,8 @@ def buildGraph(n=int, c=int,x=int, y=int):
         if uf.find(currentNode.n)!=uf.find(neighborNum.n):
             openWalls(currentNode,checkWallsResult["Cardinal"])
             uf.union(currentNode.n,neighborNum.n)
-            print(f"Union with {currentNode.n},{neighborNum.n}")
+            if verbose:
+                print(f"Union with {currentNode.n},{neighborNum.n}")
 
             
             output.put(currentNode)
@@ -112,5 +113,6 @@ for reference:
 8 9 10 11
 12 13 14 15
 """
-x= buildGraph(10,5,4,4)  #should be 4 arrays of 4 elements
+if __name__ == "__main__":
+    x = buildGraph(10, 5, 4, 4, verbose=True)  # should be 4 arrays of 4 elements
 
