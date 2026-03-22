@@ -5,6 +5,9 @@ class Node:
         def __init__(self,n):
             #Index
             self.index = n
+
+            self.x = 0
+            self.y = 0
            
 
             #cardinal directions represent the walls. 0 = Open, 1 = Closed, -1 = Edge
@@ -78,6 +81,10 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=Fal
             currentNode.SIndex= (columnlength,rowlength+1)
             currentNode.EIndex= (columnlength+1,rowlength)
             currentNode.WIndex= (columnlength-1,rowlength)
+
+            currentNode.x = rowlength
+            currentNode.y = columnlength
+
 
             rowValue[columnlength]=(currentNode)
             currentNum+=1
