@@ -62,8 +62,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 
 #ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length, outputArray = return 2d array instead of Queue
 # Index = Node.index; index: 0-> X*Y
-def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=False):
-    output = []
+def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
     numBoxes = x*y 
     connectedRegions = numBoxes
     #Create the boxes themselves -> 2d Matrix
@@ -111,12 +110,9 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=Fal
             uf.union(currentNode.index,neighborNum.index)
             if verbose:
                 print(f"Union with {currentNode.index},{neighborNum.index}")
-            output.append(currentNode)
             connectedRegions-=1
-    if outputArray:
-        #Return both the 2D array and the Queue
-        return {"Queue":output, "List":gridBoxes}
-    return output
+   
+    return gridBoxes
 
 
 
@@ -129,8 +125,7 @@ for reference:
 12 13 14 15
 """
 if __name__ == "__main__":
-    x= buildGraph("QuickFind",10,5,4,4, verbose=True,outputArray=True)  #should be 4 arrays of 4 elements
-    x=x["List"]
+    x= buildGraph("QuickFind",10,5,4,4, verbose=True)  #should be 4 arrays of 4 elements
     for i in range(4):
         for j in range(4):
             print(x[i][j].index)
