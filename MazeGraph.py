@@ -90,8 +90,8 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
             currentNode.EIndex= (columnlength+1,rowlength)
             currentNode.WIndex= (columnlength-1,rowlength)
 
-            currentNode.x = rowlength
-            currentNode.y = columnlength
+            currentNode.y = rowlength
+            currentNode.x = columnlength
 
 
             rowValue[columnlength]=(currentNode)
