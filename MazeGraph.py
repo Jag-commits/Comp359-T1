@@ -23,14 +23,24 @@ class Node:
 
 #Check for avaialable walls, send coordinates and Cardinal Dir
 def checkWalls(currentNode):
-    if currentNode.N==1:
-        return {"coord": currentNode.NIndex, "Cardinal" :"N"}
-    elif currentNode.S==1:
-        return {"coord": currentNode.SIndex, "Cardinal" :"S"}
-    elif currentNode.E==1: 
-        return {"coord": currentNode.EIndex, "Cardinal" :"E"}
-    elif currentNode.W==1: 
-        return {"coord": currentNode.WIndex, "Cardinal" :"W"}
+    walls = [0, 1, 2, 3]
+    random.shuffle(walls)
+
+    for Wall in walls:
+        match Wall:
+            case 0:
+                if currentNode.N == 1:
+                    return {"coord": currentNode.NIndex, "Cardinal": "N"}
+            case 1:
+                if currentNode.S == 1:
+                    return {"coord": currentNode.SIndex, "Cardinal": "S"}
+            case 2:
+                if currentNode.E == 1:
+                    return {"coord": currentNode.EIndex, "Cardinal": "E"}
+            case 3:
+                if currentNode.W == 1:
+                    return {"coord": currentNode.WIndex, "Cardinal": "W"}
+
     return None
 
 
@@ -60,7 +70,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
     
 
 
-#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length, outputArray = return 2d array instead of Queue
+#ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
 # Index = Node.index; index: 0-> X*Y
 def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
     numBoxes = x*y 
