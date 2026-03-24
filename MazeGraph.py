@@ -113,7 +113,34 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
             connectedRegions-=1
    
     return gridBoxes
+    
+def wall_segments(grid):
+    #this is used by the pygames file to draw the walls
+    # 0 = open, 1 = closed, -1 = edge on that side.
 
+    # yield is like return but it keeps ongoing until the function is done, so it will run for all rows in the range num_rows
+    # so this means every cell in the grid is visited once, going row by row, 
+    num_rows, num_columns = len(grid), len(grid[0])
+    for rows in range(num_rows):
+        for columns in range(num_columns):
+            node = grid[rows][columns]
+
+            if rows == 0: #this is the top row, so we need to draw the top wall
+                yield ((columns, rows), (columns + 1, rows))
+
+            if columns == 0: #this is the left column, so we need to draw the left wall
+                yield ((columns, rows), (columns, rows + 1))
+
+            # this is the right colum, or inner an vertical wall 
+            if columns == num_columns - 1 or node.E == 1:
+                yield ((columns + 1, rows), (columns + 1, rows + 1))
+
+            #  this is the bottom row, or inner a horizontal wall
+            if rows == num_rows - 1 or node.S == 1:
+                yield ((columns, rows + 1), (columns + 1, rows + 1))
+
+            #those are all the cases, since we start in the top right, we dont need to check the top or left walls
+            #we can assume they are already correct.
 
 
 """

@@ -1,5 +1,5 @@
 import argparse
-from MazeGraph import buildGraph
+from pygame_grid import run as pygame_draw
 from implementations.registry import UF_REGISTRY
 # can run with: python3 .\main.py
 
@@ -23,15 +23,16 @@ def main():
     parser.add_argument("--verbose",action="store_true", help="Print each union operation during maze generation",)
     args = parser.parse_args()
 
-    queue = buildGraph(args.ufClass,args.random,args.components,args.cols,args.rows,verbose=args.verbose)
-
-    #printmap(queue or list) #TODO:add this here
-    #drawmap(queue or list)  #TODO:add this here using pygames maybe?
-    
-    print(f"Generated {args.rows}x{args.cols} maze")
-    print(f"Target components: {args.components}")
-    print(f"Random mode: {args.random}")
-    print(f"Walls removed: {len(queue)}")
+    pygame_draw(
+        args.ufClass,
+        args.rows,
+        args.cols,
+        args.components,
+        verbose=args.verbose,
+    )
+    #we will later be adding input to the pygame window, to allow the user to change this easyier
+    # running the file will make a 5x5 defult size you can change the size using the parser right now
+    # see above, the new maze button will help us with this!
 
 if __name__ == "__main__":
     main()
