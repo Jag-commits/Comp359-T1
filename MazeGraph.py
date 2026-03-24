@@ -1,6 +1,5 @@
 from implementations.registry import get_uf_class
 import random
-import queue
 class Node:
         def __init__(self,n):
             #Index
@@ -64,7 +63,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 #ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length, outputArray = return 2d array instead of Queue
 # Index = Node.index; index: 0-> X*Y
 def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=False):
-    output = queue.Queue()
+    output = []
     numBoxes = x*y 
     connectedRegions = numBoxes
     #Create the boxes themselves -> 2d Matrix
@@ -112,7 +111,7 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False,outputArray=Fal
             uf.union(currentNode.index,neighborNum.index)
             if verbose:
                 print(f"Union with {currentNode.index},{neighborNum.index}")
-            output.put(currentNode)
+            output.append(currentNode)
             connectedRegions-=1
     if outputArray:
         #Return both the 2D array and the Queue

@@ -31,7 +31,7 @@ def main():
     print(f"Generated {args.rows}x{args.cols} maze")
     print(f"Target components: {args.components}")
     print(f"Random mode: {args.random}")
-    print(f"Walls removed: {len(queue.queue)}")
+    print(f"Walls removed: {len(queue)}")
 
 if __name__ == "__main__":
     main()
