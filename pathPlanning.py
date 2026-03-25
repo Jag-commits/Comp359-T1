@@ -6,7 +6,7 @@ as tuples (I messed around with just calling the object but I feel this is more 
 The function returns a list of node objects in order of the shortest path between the points. Likely for graphical purposes we will need to call graphical updates in the while loop,
  but for now I just have it print the path once it's found. The heuristic used is the Manhattan distance, which is pretty standard."""
 
-x= buildGraph("QuickFind",10,1,4,4, verbose=True,outputArray=True)  #should be 4 arrays of 4 elements
+x= buildGraph("QuickUnion",10,1,10,10, verbose=True,outputArray=True)  #should be 4 arrays of 4 elements
 x=x["List"]
 
 def aStar(start, goal, graph):
@@ -79,7 +79,7 @@ def heuristic(a, b):
 
 
 #Run Astar with the start and goal positions on the generated graph
-aStar((0,0),(3,3),x)
+aStar((0,0),(9,9),x)
 
 
 
