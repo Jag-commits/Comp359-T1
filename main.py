@@ -15,7 +15,7 @@ from implementations.registry import UF_REGISTRY
 
 def main():
     parser = argparse.ArgumentParser(description="Generate a 2d maze with Union-Find")
-    parser.add_argument("--ufClass",type=str,default="QuickFind",choices=UF_REGISTRY.keys(),help="Union-Find implementation",)
+    parser.add_argument("--ufClass",type=str,default="PathCompression",choices=UF_REGISTRY.keys(),help="Union-Find implementation",)
     parser.add_argument("--rows", type=int, default=5, help="Number of rows")
     parser.add_argument("--cols", type=int, default=5, help="Number of columns")
     parser.add_argument("--components",type=int,default=1,help="Target number of connected components (1 = perfect maze)",)

@@ -1,3 +1,4 @@
+from implementations.PathCompression import PathCompression
 from implementations.Quickfind import QuickFind
 from implementations.QuickUnion import QuickUnion
 
@@ -5,6 +6,7 @@ from implementations.QuickUnion import QuickUnion
 UF_REGISTRY = {
     "QuickFind": QuickFind,
     "QuickUnion": QuickUnion,
+    "PathCompression": PathCompression
 }
 
 
