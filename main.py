@@ -19,7 +19,7 @@ def main():
     parser.add_argument("--rows", type=int, default=5, help="Number of rows")
     parser.add_argument("--cols", type=int, default=5, help="Number of columns")
     parser.add_argument("--components",type=int,default=1,help="Target number of connected components (1 = perfect maze)",)
-    parser.add_argument("--random",type=int,default=0,choices=[0],help="Not Used yet. placeholder",)
+    parser.add_argument("--random",type=int,default=0,choices=[0,1,2],help="Change Maze Generation Pattern (0 = std, 1 = Vertical corridors, 2 =Horizontal corridors",)
     parser.add_argument("--verbose",action="store_true", help="Print each union operation during maze generation",)
     args = parser.parse_args()
 
@@ -28,6 +28,7 @@ def main():
         args.rows,
         args.cols,
         args.components,
+        args.random,
         verbose=args.verbose,
     )
     #we will later be adding input to the pygame window, to allow the user to change this easyier

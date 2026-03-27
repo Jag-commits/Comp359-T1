@@ -1,4 +1,5 @@
 from implementations.registry import get_uf_class
+from scipy.stats import bernoulli
 import random
 class Node:
         def __init__(self,n):
@@ -22,8 +23,21 @@ class Node:
             self.EIndex=(0,0)
 
 #Check for avaialable walls, send coordinates and Cardinal Dir
-def checkWalls(currentNode):
-    walls = [0, 1, 2, 3]
+def checkWalls(currentNode,n):
+    if n==1:
+        #N,S appear 3 times more in list
+        walls=[]
+        walls.extend([0]*3)
+        walls.extend([1]*3)
+        walls.extend([2,3])
+    if n==2:
+        #W,E appear 3 times more in list
+        walls=[]
+        walls.extend([2]*3)
+        walls.extend([3]*3)
+        walls.extend([0,1])
+    else:
+        walls = [0, 1, 2, 3]
     random.shuffle(walls)
 
     for Wall in walls:
@@ -71,8 +85,8 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 
 
 #ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
-# Index = Node.index; index: 0-> X*Y
-def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
+#n=1: 70% chance of opening vertical walls, 30% chance or horizontal walls, n=2 the opposite of n=1, n=3 (restarting on this one, bernouli won't work since we still need x # of connected regions)
+def buildGraph(ufClass, n=0, c=int,x=int, y=int, verbose=False):
     numBoxes = x*y 
     connectedRegions = numBoxes
     #Create the boxes themselves -> 2d Matrix
@@ -111,7 +125,8 @@ def buildGraph(ufClass, n=int, c=int,x=int, y=int, verbose=False):
     while c < connectedRegions:
         randomX,randomY  = random.randint(0,(x)-1), random.randint(0,(y)-1)
         currentNode = gridBoxes[randomY][randomX]
-        checkWallsResult = checkWalls(currentNode)
+        #random statistical variables go here
+        checkWallsResult = checkWalls(currentNode,n)
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[1]][availableNeighbor[0]]
@@ -162,7 +177,7 @@ for reference:
 12 13 14 15
 """
 if __name__ == "__main__":
-    x= buildGraph("QuickFind",10,5,4,4, verbose=True)  #should be 4 arrays of 4 elements
+    x= buildGraph("QuickFind",1,5,4,4, verbose=True)  #should be 4 arrays of 4 elements
     for i in range(4):
         for j in range(4):
             print(x[i][j].index)

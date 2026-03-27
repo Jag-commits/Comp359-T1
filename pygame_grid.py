@@ -23,10 +23,10 @@ BUTTON_HEIGHT = 40
 # THESE MAKE EVERYTHING LOOK NICE AND POLISHED, feel free to change them if you find something that looks better
 
 
-def make_maze(uf_name: str, rows: int, cols: int, components: int, verbose: bool = False): #helper
+def make_maze(uf_name: str, rows: int, cols: int, components: int, random: int, verbose: bool = False): #helper
     maze_data = buildGraph(
         uf_name,
-        0,
+        random,
         components,
         cols,
         rows,
@@ -68,8 +68,8 @@ def draw_button(screen, font, rect: pygame.Rect, label: str, hover: bool): #help
     screen.blit(text, text_rect)
 
 
-def run(uf_name: str, rows: int, cols: int, components: int, verbose: bool = False):
-    grid = make_maze(uf_name, rows, cols, components, verbose=verbose) 
+def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbose: bool = False):
+    grid = make_maze(uf_name, rows, cols, components, random, verbose) 
 
     grid_w = cols * CELL_SIZE
     grid_h = rows * CELL_SIZE
@@ -100,7 +100,7 @@ def run(uf_name: str, rows: int, cols: int, components: int, verbose: bool = Fal
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
                 if btn_new.collidepoint(event.pos):  # new maze button
-                    grid = make_maze(uf_name, rows, cols, components, verbose=verbose)
+                    grid = make_maze(uf_name, rows, cols, components, random, verbose=verbose)
                                                      # add more buttons here
                                                      #input for width and hight and components
 
