@@ -1,0 +1,3 @@
+UF Class: UnionByRank
+Grid: 250x250
+Build Time: 0.9080 seconds
