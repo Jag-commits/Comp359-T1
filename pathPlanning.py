@@ -9,7 +9,7 @@ The function returns a list of node objects in order of the shortest path betwee
 
 
 build_start = time.perf_counter()
-x= buildGraph("PathCompression",10,1,250,250, verbose=True)  #should be 4 arrays of 4 elements
+x= buildGraph("PathCompression",0,1,250,250, verbose=True)  #should be 4 arrays of 4 elements
 build_end = time.perf_counter()
 print(f"Build Time: {build_end - build_start:.4f} seconds")
 
