@@ -1,6 +1,7 @@
 import pygame
 
 from MazeGraph import buildGraph, wall_segments
+from pathPlanning import aStar
 
 #All colors 
 BG_COLOR = (255, 255, 255)
@@ -11,10 +12,11 @@ SIDEBAR_FG = (230, 230, 230)
 BUTTON_BG = (70, 70, 75)
 BUTTON_HOVER = (95, 95, 105)
 BUTTON_BORDER = (120, 120, 130)
+PATH_COLOR = (200, 0, 0)
 
 #all the sizes 
 SIDEBAR_WIDTH = 200
-CELL_SIZE = 28
+CELL_SIZE = 20
 WALL_THICKNESS = 2
 PADDING = 12
 FONT_SIZE = 24
@@ -22,6 +24,13 @@ SIDEBAR_PAD = 10
 BUTTON_HEIGHT = 40
 # THESE MAKE EVERYTHING LOOK NICE AND POLISHED, feel free to change them if you find something that looks better
 
+DROPDOWN_BG = (60, 60, 60)
+DROPDOWN_HOVER = (90, 90, 90)
+DROPDOWN_SELECT = (100, 120, 120)
+DROPDOWN_BORDER = (100, 100, 100)
+
+SPEED = 60
+ 
 
 def make_maze(uf_name: str, rows: int, cols: int, components: int, random: int, verbose: bool = False): #helper
     maze_data = buildGraph(
@@ -35,10 +44,11 @@ def make_maze(uf_name: str, rows: int, cols: int, components: int, random: int, 
     return maze_data
 
 
+
 def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int): #helper
     # this looks really bad, but all it does is dynamicaly draw the cells and walls based on the grid 
     for r in range(rows):
-        for c in range(cols):
+        for c in range(cols): 
             x = offset_x + c * CELL_SIZE
             y = offset_y + r * CELL_SIZE
             pygame.draw.rect(screen, CELL_COLOR, (x, y, CELL_SIZE, CELL_SIZE))
@@ -51,6 +61,20 @@ def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int):
             (offset_x + b[0] * CELL_SIZE, offset_y + b[1] * CELL_SIZE),
             WALL_THICKNESS,
         )
+
+    path = aStar((0,0), (rows-1, cols-1), grid)
+    for (r,c) in path:
+        draw_path(screen, c, r, PADDING, PADDING)
+        #pygame.display.flip()
+        #pygame.time.delay(SPEED) dont run this, kind of animates
+
+def draw_path(screen, row: int, col: int, offset_x: int, offset_y: int):
+        x = offset_x + col * CELL_SIZE
+        y = offset_y + row * CELL_SIZE
+        pygame.draw.rect(screen, PATH_COLOR, width = 0, rect = (x + (.25*CELL_SIZE), y + (.25*CELL_SIZE), CELL_SIZE/2, CELL_SIZE/2))
+        #pygame.draw.rect(screen,PATH_COLOR,(x, y, CELL_SIZE * 0.5, CELL_SIZE *0.5))
+
+        
 
 
 def draw_button(screen, font, rect: pygame.Rect, label: str, hover: bool): #helper
@@ -68,7 +92,7 @@ def draw_button(screen, font, rect: pygame.Rect, label: str, hover: bool): #help
     screen.blit(text, text_rect)
 
 
-def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbose: bool = False):
+def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbose: bool = False, autoplay = False, speed = SPEED):
     grid = make_maze(uf_name, rows, cols, components, random, verbose) 
 
     grid_w = cols * CELL_SIZE
@@ -91,27 +115,33 @@ def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbos
         btn_w,
         BUTTON_HEIGHT,
     )
-
+    is_playing = autoplay
+    SPEED = max(1, speed)
     running = True
     while running:
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #windows quit button
                 running = False
+            
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
                 if btn_new.collidepoint(event.pos):  # new maze button
                     grid = make_maze(uf_name, rows, cols, components, random, verbose=verbose)
                                                      # add more buttons here
                                                      #input for width and hight and components
 
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE: #pause / start
+                    is_playing = not is_playing
+                        
         screen.fill(BG_COLOR)
         pygame.draw.rect(screen, SIDEBAR_BG, sidebar)
 
-        draw_grid(screen, grid, PADDING, PADDING, rows, cols)
+        draw_grid(screen, grid, PADDING, PADDING, rows, cols) #rewrite
 
         draw_button(screen, font, btn_new, "New maze", btn_new.collidepoint(mouse))
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(SPEED)
 
     pygame.quit()

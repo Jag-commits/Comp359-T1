@@ -7,14 +7,6 @@ as tuples (I messed around with just calling the object but I feel this is more 
 The function returns a list of node objects in order of the shortest path between the points. Likely for graphical purposes we will need to call graphical updates in the while loop,
  but for now I just have it print the path once it's found. The heuristic used is the Manhattan distance, which is pretty standard."""
 
-
-build_start = time.perf_counter()
-x= buildGraph("PathCompression",0,1,250,250, verbose=True)  #should be 4 arrays of 4 elements
-build_end = time.perf_counter()
-print(f"Build Time: {build_end - build_start:.4f} seconds")
-
-
-
 def aStar(start, goal, graph):
     """Runs A* Search On a graph of node objects"""
     startNode = graph[start[1]][start[0]]
@@ -25,6 +17,7 @@ def aStar(start, goal, graph):
     heapq.heappush(priority_queue, (0, counter, startNode))
     counter += 1
     came_from = {}
+    path_found = False
 
     
     gscore = {node: float('inf') for row in graph for node in row} #G Score is the cost from start to current node - initialize to inf since we haven't "discovered" them yet
@@ -32,20 +25,16 @@ def aStar(start, goal, graph):
     f_score = {node: float('inf') for row in graph for node in row} # f score is gscore plus heuristic distance (core of A*)
     f_score[startNode] = heuristic(start, goal)
 
-
-    #print("gscore:", gscore)
-    #print("fscore:", f_score)
-
     while priority_queue: #this whole algorith is pretty much a priority queue based on f_score
         current = heapq.heappop(priority_queue)[2]
         if current == goalNode: #Success Condition
             path = []
             while current in came_from:
-                path.append(current)
+                path.append((current.x, current.y))  # Add the current node to the path as coordinates
                 current = came_from[current]
-            path.append(startNode)
+            path.append((startNode.x, startNode.y))  # Add the start node to the path
             path.reverse()
-            print("Path found: from", startNode.index, "to", goalNode.index, ":", [(node.index) for node in path])
+            #print("Path found:", [(node[0], node[1]) for node in path])  # Print the path as coordinates
             return path
         
         for neighbor in get_neighbors(current, graph): #for each neighbor, calculate tentative gscore and update if it's better than the previously known gscore
@@ -57,9 +46,10 @@ def aStar(start, goal, graph):
                 if neighbor not in [i[2] for i in priority_queue]:
                     heapq.heappush(priority_queue, (f_score[neighbor], counter, neighbor))
                     counter += 1
-    return
-
-
+                    
+    if not path_found:
+        print("No path")
+        return -1
 
 def get_neighbors(node, graph):
     """Checks All Directions for Walls, if no wall, adds to neighbors list"""
@@ -82,14 +72,17 @@ def heuristic(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
+if __name__ == "__main__":
+    build_start = time.perf_counter()
+    x= buildGraph("PathCompression",0,1,3,3, verbose=True)  #should be 4 arrays of 4 elements
+    build_end = time.perf_counter()
+    print(f"Build Time: {build_end - build_start:.4f} seconds")
 
-
-#Run Astar with the start and goal positions on the generated graph
-
-search_start = time.perf_counter()
-aStar((0,0),(249,249),x)
-search_end = time.perf_counter()
-print(f"Search Time: {search_end - search_start:.4f} seconds")
+    #Run Astar with the start and goal positions on the generated graph
+    search_start = time.perf_counter()
+    path = aStar((0,0),(2,2),x)
+    search_end = time.perf_counter()
+    print(f"Search Time: {search_end - search_start:.4f} seconds")
 
 
 
