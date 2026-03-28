@@ -62,7 +62,7 @@ def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int):
             WALL_THICKNESS,
         )
 
-    path = aStar((0,0), (rows-1, cols-1), grid)
+    path = aStar((0, 0), (cols - 1, rows - 1), grid)
     for (r,c) in path:
         draw_path(screen, c, r, PADDING, PADDING)
         #pygame.display.flip()
