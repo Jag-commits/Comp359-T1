@@ -12,7 +12,7 @@ SIDEBAR_FG = (230, 230, 230)
 BUTTON_BG = (70, 70, 75)
 BUTTON_HOVER = (95, 95, 105)
 BUTTON_BORDER = (120, 120, 130)
-PATH_COLOR = (200, 0, 0)
+PATH_COLOR = (200, 0, 0,125)
 
 #all the sizes 
 SIDEBAR_WIDTH = 200
@@ -71,7 +71,10 @@ def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int):
 def draw_path(screen, row: int, col: int, offset_x: int, offset_y: int):
         x = offset_x + col * CELL_SIZE
         y = offset_y + row * CELL_SIZE
-        pygame.draw.rect(screen, PATH_COLOR, width = 0, rect = (x + (.25*CELL_SIZE), y + (.25*CELL_SIZE), CELL_SIZE/2, CELL_SIZE/2))
+        alpha_surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
+        alpha_surface.fill(PATH_COLOR)
+        screen.blit(alpha_surface, (x, y))
+        #pygame.draw.rect(screen, PATH_COLOR, width = 0, rect = (x  , y , CELL_SIZE, CELL_SIZE))  Previously using rectangles
         #pygame.draw.rect(screen,PATH_COLOR,(x, y, CELL_SIZE * 0.5, CELL_SIZE *0.5))
 
         
