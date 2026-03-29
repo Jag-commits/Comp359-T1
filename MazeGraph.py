@@ -1,5 +1,4 @@
 from implementations.registry import get_uf_class
-from scipy.stats import bernoulli
 import random
 class Node:
         def __init__(self,n):
@@ -23,27 +22,19 @@ class Node:
             self.EIndex=(0,0)
 
 def findClosest(currentNode,center):
-    walls=[0]*4
-    
+    walls=[]
     if (abs(center.x -currentNode.x))< (abs(center.y - currentNode.y)):
-        #E/W candidates
         if currentNode.x < center.x:
-            walls[0]=3
-            walls[1]=2
+            walls.extend(random.choices(population=[2,1],weights=[80,20],k=3)) #Orthogonal directions for randomness
         else: 
-            walls[0]=2
-            walls[1]=3
-        walls[2]=0
-        walls[3]=1
+            walls.extend(random.choices(population=[3,0],weights=[80,20],k=3))
+        
     else:
         if currentNode.y < center.y:
-            walls[0]=1
-            walls[1]=0
+            walls.extend(random.choices(population=[1,3],weights=[80,20],k=3))
         else: 
-            walls[0]=0
-            walls[1]=1
-        walls[2]=0
-        walls[3]=1
+            walls.extend(random.choices(population=[0,2],weights=[80,20],k=3))
+    walls.extend([0,1,2,3]) #If direction is missing
     return walls
 
 #Check for avaialable walls, send coordinates and Cardinal Dir
@@ -53,16 +44,16 @@ def checkWalls(currentNode,n,center):
         walls=[]
         walls.extend([0]*3)
         walls.extend([1]*3)
-        walls.extend([2,3])
+        walls.extend([2,3]) 
         random.shuffle(walls)
-    if n==2:
+    elif n==2:
         #W,E appear 3 times more in list
         walls=[]
         walls.extend([2]*3)
         walls.extend([3]*3)
         walls.extend([0,1])
         random.shuffle(walls)
-    if n==3:
+    elif n==3:
         walls = findClosest(currentNode,center)
     else:
         walls = [0, 1, 2, 3]
@@ -72,15 +63,19 @@ def checkWalls(currentNode,n,center):
         match Wall:
             case 0:
                 if currentNode.N == 1:
+                    walls.clear()
                     return {"coord": currentNode.NIndex, "Cardinal": "N"}
             case 1:
                 if currentNode.S == 1:
+                    walls.clear()
                     return {"coord": currentNode.SIndex, "Cardinal": "S"}
             case 2:
                 if currentNode.E == 1:
+                    walls.clear()
                     return {"coord": currentNode.EIndex, "Cardinal": "E"}
             case 3:
                 if currentNode.W == 1:
+                    walls.clear()
                     return {"coord": currentNode.WIndex, "Cardinal": "W"}
 
     return None
