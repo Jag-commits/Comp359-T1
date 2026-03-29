@@ -25,15 +25,15 @@ def findClosest(currentNode,center):
     walls=[]
     if (abs(center.x -currentNode.x))< (abs(center.y - currentNode.y)):
         if currentNode.x < center.x:
-            walls.extend(random.choices(population=[2,1],weights=[80,20],k=3)) #Orthogonal directions for randomness
+            walls.extend(random.choices(population=[2,1,3,0],weights=[85,5,5,5],k=2)) # 85/15 bias between desired and random direction (Best Split for perserving circular pattern and randomness)
         else: 
-            walls.extend(random.choices(population=[3,0],weights=[80,20],k=3))
+            walls.extend(random.choices(population=[3,0,1,2],weights=[85,5,5,5],k=2)) #k = 2, so it doesn't automatically default to opening north wall
         
     else:
         if currentNode.y < center.y:
-            walls.extend(random.choices(population=[1,3],weights=[80,20],k=3))
+            walls.extend(random.choices(population=[1,3,2,0],weights=[85,5,5,5],k=2))
         else: 
-            walls.extend(random.choices(population=[0,2],weights=[80,20],k=3))
+            walls.extend(random.choices(population=[0,2,1,3],weights=[85,5,5,5],k=2))
     walls.extend([0,1,2,3]) #If direction is missing
     return walls
 
