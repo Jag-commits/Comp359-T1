@@ -22,24 +22,52 @@ class Node:
             self.WIndex=(0,0)
             self.EIndex=(0,0)
 
+def findClosest(currentNode,center):
+    walls=[0]*4
+    
+    if (abs(center.x -currentNode.x))< (abs(center.y - currentNode.y)):
+        #E/W candidates
+        if currentNode.x < center.x:
+            walls[0]=3
+            walls[1]=2
+        else: 
+            walls[0]=2
+            walls[1]=3
+        walls[2]=0
+        walls[3]=1
+    else:
+        if currentNode.y < center.y:
+            walls[0]=1
+            walls[1]=0
+        else: 
+            walls[0]=0
+            walls[1]=1
+        walls[2]=0
+        walls[3]=1
+    return walls
+
 #Check for avaialable walls, send coordinates and Cardinal Dir
-def checkWalls(currentNode,n):
+def checkWalls(currentNode,n,center):
     if n==1:
         #N,S appear 3 times more in list
         walls=[]
         walls.extend([0]*3)
         walls.extend([1]*3)
         walls.extend([2,3])
+        random.shuffle(walls)
     if n==2:
         #W,E appear 3 times more in list
         walls=[]
         walls.extend([2]*3)
         walls.extend([3]*3)
         walls.extend([0,1])
+        random.shuffle(walls)
+    if n==3:
+        walls = findClosest(currentNode,center)
     else:
         walls = [0, 1, 2, 3]
-    random.shuffle(walls)
-
+        random.shuffle(walls)
+    
     for Wall in walls:
         match Wall:
             case 0:
@@ -120,13 +148,13 @@ def buildGraph(ufClass, n=0, c=int,x=int, y=int, verbose=False):
     # this changes which union find we are using
     uf = ufClass(numBoxes)
     print("Using UF class:", uf.__class__.__name__)
-  
+    center = gridBoxes[y//2][x//2]
     
     while c < connectedRegions:
         randomX,randomY  = random.randint(0,(x)-1), random.randint(0,(y)-1)
         currentNode = gridBoxes[randomY][randomX]
         #random statistical variables go here
-        checkWallsResult = checkWalls(currentNode,n)
+        checkWallsResult = checkWalls(currentNode,n,center)
         if checkWallsResult ==None: continue
         availableNeighbor = checkWallsResult["coord"]
         neighborNum = gridBoxes[availableNeighbor[1]][availableNeighbor[0]]
