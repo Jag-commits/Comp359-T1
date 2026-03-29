@@ -19,7 +19,7 @@ def main():
     parser.add_argument("--rows", type=int, default=5, help="Number of rows")
     parser.add_argument("--cols", type=int, default=5, help="Number of columns")
     parser.add_argument("--components",type=int,default=1,help="Target number of connected components (1 = perfect maze)",)
-    parser.add_argument("--random",type=int,default=0,choices=[0,1,2,3],help="0 = Std, 1 = Vertical Corridors, 2 = Horizontal Corridors, 3 = Circular",)
+    parser.add_argument("--random",type=int,default=0,choices=[0,1,2,3],help="0 = Std, 1 = Vertical Corridors, 2 = Horizontal Corridors, 3 = Circular (Must be n x n)",)
     parser.add_argument("--verbose",action="store_true", help="Print each union operation during maze generation",)
     parser.add_argument("--autoplay", type=bool, default=0, help="autoplay 0 = false, 1 =true")
     parser.add_argument("--speed", type=int, default=60, help="how fast the solver runs")
