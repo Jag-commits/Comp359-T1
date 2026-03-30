@@ -103,34 +103,37 @@ def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbos
     window_h = grid_h + WALL_THICKNESS + PADDING * 2
 
     pygame.init()
-    screen = pygame.display.set_mode((window_w, window_h))
+    screen = pygame.display.set_mode((window_w, window_h), pygame.RESIZABLE)
     pygame.display.set_caption(f"Maze {rows}x{cols}")
     font = pygame.font.Font(None, FONT_SIZE)
     clock = pygame.time.Clock()
 
-    sidebar = pygame.Rect(grid_area_w, 0, SIDEBAR_WIDTH, window_h)
-    btn_w = sidebar.w -  SIDEBAR_PAD * 2
-    btn_new = pygame.Rect(
-        sidebar.x + SIDEBAR_PAD,
-        sidebar.y + BUTTON_HEIGHT,
-        btn_w,
-        BUTTON_HEIGHT,
-    )
-    btn_solve = pygame.Rect(
-        sidebar.x + SIDEBAR_PAD,
-        sidebar.y + BUTTON_HEIGHT * 2 + SIDEBAR_PAD,
-        btn_w,
-        BUTTON_HEIGHT,
-    )
     show_solution = False
     is_playing = autoplay
     SPEED = max(1, speed)
     running = True
     while running:
+        window_w, window_h = screen.get_size()
+        sidebar = pygame.Rect(window_w - SIDEBAR_WIDTH, 0, SIDEBAR_WIDTH, window_h)
+        btn_w = sidebar.w -SIDEBAR_PAD * 2
+        btn_new = pygame.Rect(
+            sidebar.x + SIDEBAR_PAD,
+            sidebar.y + BUTTON_HEIGHT,
+            btn_w,
+            BUTTON_HEIGHT,
+        )
+        btn_solve = pygame.Rect(
+            sidebar.x + SIDEBAR_PAD,
+            sidebar.y + BUTTON_HEIGHT * 2 + SIDEBAR_PAD,
+            btn_w,
+            BUTTON_HEIGHT,
+        )
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #windows quit button
                 running = False
+            elif event.type == pygame.VIDEORESIZE:
+                screen = pygame.display.set_mode(event.size, pygame.RESIZABLE)
             
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
                 if btn_new.collidepoint(event.pos):  # new maze button
