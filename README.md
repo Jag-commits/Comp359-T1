@@ -14,6 +14,8 @@ UnionFind variations
   * apply UnionFind to construct 2D mazes given input parameters for number of cells N, dimensions rows X, columns Y and number of connected components C (i.e., disjoint subsets)
   * explore how you can design changes in maze structure using statistics random variables of different kinds  
 
+Team Planning Doc: https://docs.google.com/document/d/1swkE98c2WLmawOUJZN5-EfEtiiMVBci0RnsPwyehqZ8/edit?usp=drivesdk 
+
 Initial Plan:  
 1) Implement different variations of Union and Find such as Quick Find, Quick Union, Path Compression, Union by Rank etc.
 2) Compare these variations runtimes for both Union and Find.  
