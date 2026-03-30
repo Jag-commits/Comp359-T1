@@ -45,7 +45,7 @@ def make_maze(uf_name: str, rows: int, cols: int, components: int, random: int, 
 
 
 
-def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int): #helper
+def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int, path=None): #helper
     # this looks really bad, but all it does is dynamicaly draw the cells and walls based on the grid 
     for r in range(rows):
         for c in range(cols): 
@@ -62,11 +62,9 @@ def draw_grid(screen, grid, offset_x: int, offset_y: int, rows: int, cols: int):
             WALL_THICKNESS,
         )
 
-    path = aStar((0, 0), (cols - 1, rows - 1), grid)
-    for (r,c) in path:
-        draw_path(screen, c, r, PADDING, PADDING)
-        #pygame.display.flip()
-        #pygame.time.delay(SPEED) dont run this, kind of animates
+    if path:
+        for (r, c) in path:
+            draw_path(screen, c, r, offset_x, offset_y)
 
 def draw_path(screen, row: int, col: int, offset_x: int, offset_y: int):
         x = offset_x + col * CELL_SIZE
@@ -118,6 +116,13 @@ def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbos
         btn_w,
         BUTTON_HEIGHT,
     )
+    btn_solve = pygame.Rect(
+        sidebar.x + SIDEBAR_PAD,
+        sidebar.y + BUTTON_HEIGHT * 2 + SIDEBAR_PAD,
+        btn_w,
+        BUTTON_HEIGHT,
+    )
+    show_solution = False
     is_playing = autoplay
     SPEED = max(1, speed)
     running = True
@@ -130,8 +135,9 @@ def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbos
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
                 if btn_new.collidepoint(event.pos):  # new maze button
                     grid = make_maze(uf_name, rows, cols, components, random, verbose=verbose)
-                                                     # add more buttons here
-                                                     #input for width and hight and components
+                    show_solution = False
+                elif btn_solve.collidepoint(event.pos):
+                    show_solution = True
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE: #pause / start
@@ -140,9 +146,14 @@ def run(uf_name: str, rows: int, cols: int, components: int, random: int, verbos
         screen.fill(BG_COLOR)
         pygame.draw.rect(screen, SIDEBAR_BG, sidebar)
 
-        draw_grid(screen, grid, PADDING, PADDING, rows, cols) #rewrite
+        if show_solution:
+            path = aStar((0, 0), (cols - 1, rows - 1), grid)
+            draw_grid(screen, grid, PADDING, PADDING, rows, cols, path)
+        else:
+            draw_grid(screen, grid, PADDING, PADDING, rows, cols)
 
         draw_button(screen, font, btn_new, "New maze", btn_new.collidepoint(mouse))
+        draw_button(screen, font, btn_solve, "Solve", btn_solve.collidepoint(mouse))
 
         pygame.display.flip()
         clock.tick(SPEED)
