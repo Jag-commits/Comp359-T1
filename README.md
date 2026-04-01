@@ -54,5 +54,6 @@ To solve the generated maze, an A* search algorithm was implemented, and its sol
 # Bibliography
 
 - Potato Coders. (2020, December 3). Union Find in 5 minutes — Data Structures & Algorithms. YouTube. https://www.youtube.com/watch?v=ayW5B2W9hfo
+- Sedgewick, R., & Wayne,K.(2011).Algorithms,Fourth Edition. Addison-Wesley Professional
 - WilliamFiset. (2017, April 7). Union Find Path Compression. Youtube https://www.youtube.com/watch?v=VHRhJWacxis
 - **Pygame**
