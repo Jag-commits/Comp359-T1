@@ -51,7 +51,7 @@ View All Feature Descriptions: `python3 .\main.py --h`
 1) Implement different variations of Union and Find such as Quick Find, Quick Union, Path Compression, Union by Rank etc.
 2) Compare these variations runtimes for both Union and Find.  
 3) Using an efficient variant of the data structure create 2D mazes with input parameters for its size.
-4) Using statistics random variables such as random and poisson see how the maze generation gets effected with these differing variables.  
+4) Using statistics random variables to bias specific wall openings and see how the maze generation gets effected with these differing variables.  
 5) Create a maze searching/solving algorithm to solve the created mazes.  
 6) Visually display these mazes and their solving to the user with a clean GUI.
 
