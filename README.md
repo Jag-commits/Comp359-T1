@@ -16,6 +16,36 @@ Given Prompt (Number One) - UnionFind variations
   * apply UnionFind to construct 2D mazes given input parameters for number of cells N, dimensions rows X, columns Y and number of connected components C (i.e., disjoint subsets)
   * explore how you can design changes in maze structure using statistics random variables of different kinds  
 
+# How to Run
+
+## Prerequisites
+Required Libraries: Pygame
+
+Commands:
+
+`pip install pygame`
+
+## Running Program
+
+All Configurable Features:
+- Specific Union Find Implementation
+- Number of Rows
+- Number of Columns
+- Number of Connected Regions
+- Random Statistical Variables (0 = standard, 1 = Vertical Corridors, 2 = Horizontal Corridors, 3 = Circular Pattern ( must have: Num Rows = Num Cols)
+
+The GUI interface allows you to access the following:
+- Number of Rows
+- Number of Columns
+- Maze Solver
+
+To configure additional features use the following:
+
+`python3 .\main.py --rows {Configure} --cols {Configure} --components {Configure} --random {Options: 0, 1 , 2, 3} --verbose`
+
+View All Feature Descriptions: `python3 .\main.py --h`
+
+*Note: adding verbose prints the individual unions between nodes
 
 # Assignment Plan
 1) Implement different variations of Union and Find such as Quick Find, Quick Union, Path Compression, Union by Rank etc.
