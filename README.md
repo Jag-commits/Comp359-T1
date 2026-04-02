@@ -75,7 +75,7 @@ To solve the generated maze, an A* search algorithm was implemented, and its sol
 - Joel: https://youtu.be/K4kGVkSzDbY
 - Alexander:
 - Jacob:
-- Jagpreet:
+- Jagpreet: https://www.youtube.com/watch?v=ddr8Ht8NS5U (Check Description for Timestamps)
 - Natasha
 
 
