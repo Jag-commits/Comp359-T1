@@ -73,7 +73,7 @@ To solve the generated maze, an A* search algorithm was implemented, and its sol
 
 Walls are defined as the following: North = 0, South = 1, East = 2, West = 3.
 
-0) Standard:               
+#### 0) Standard:               
 
 $X = \\{0, 1, 2 ,3\\}$
 
@@ -81,7 +81,7 @@ $X = \\{0, 1, 2 ,3\\}$
 |---|---|---|---|---|
 | P(X=x) | 0.25 | 0.25 | 0.25 | 0.25 |
 
-1) Vertical Cooridors:
+#### 1) Vertical Cooridors:
 
 $X = \\{0, 1, 2 ,3\\}$
 
@@ -89,7 +89,7 @@ $X = \\{0, 1, 2 ,3\\}$
 |---|---|---|---|---|
 | P(X=x) | 0.375 | 0.375 | 0.125 | 0.125 |
 
-2) Horizontal Cooridors:
+#### 2) Horizontal Cooridors:
 
 $X = \\{0, 1, 2 ,3\\}$
 
@@ -97,7 +97,7 @@ $X = \\{0, 1, 2 ,3\\}$
 |---|---|---|---|---|
 | P(X=x) | 0.125 | 0.125 | 0.375 | 0.375 |
 
-3) Circular:
+#### 3) Circular (Closest Wall to Center):
 
 This method does not set static probabilities to certain directions.
 
@@ -105,7 +105,7 @@ $$
 X = \\{W_1, W_2, W_3, W_4\\}
 $$
 
-$$P(X = Wi) = 
+$$P(X = W_i) = 
 \begin{cases} 
 0.85 & \text{if } W_i = \text{ Closest Wall } \\
 0.05 & \text{otherwise } 
