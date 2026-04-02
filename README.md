@@ -69,6 +69,48 @@ Using the UnionFind implementation, we created a random maze algorithm, visualiz
 
 To solve the generated maze, an A* search algorithm was implemented, and its solution is displayed over the generated maze
 
+## Random Statistical Variables
+
+Walls are defined as the following: North = 0, South = 1, East = 2, West = 3.
+
+0) Standard:               
+
+$X = \\{0, 1, 2 ,3\\}$
+
+| x | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| P(X=x) | 0.25 | 0.25 | 0.25 | 0.25 |
+
+1) Vertical Cooridors:
+
+$X = \\{0, 1, 2 ,3\\}$
+
+| x | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| P(X=x) | 0.375 | 0.375 | 0.125 | 0.125 |
+
+2) Horizontal Cooridors:
+
+$X = \\{0, 1, 2 ,3\\}$
+
+| x | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| P(X=x) | 0.125 | 0.125 | 0.375 | 0.375 |
+
+3) Circular:
+
+This method does not set static probabilities to certain directions.
+
+$$
+X = \\{W_1, W_2, W_3, W_4\\}
+$$
+
+$$P(X = Wi) = 
+\begin{cases} 
+0.85 & \text{if } W_i = \text{ Closest Wall } \\
+0.05 & \text{otherwise } 
+\end{cases} $$
+
 
 
 
@@ -89,4 +131,5 @@ To solve the generated maze, an A* search algorithm was implemented, and its sol
 - Potato Coders. (2020, December 3). Union Find in 5 minutes — Data Structures & Algorithms. YouTube. https://www.youtube.com/watch?v=ayW5B2W9hfo
 - Sedgewick, R., & Wayne,K.(2011).Algorithms,Fourth Edition. Addison-Wesley Professional
 - WilliamFiset. (2017, April 7). Union Find Path Compression. Youtube https://www.youtube.com/watch?v=VHRhJWacxis
+- LaTeX/Mathematics. (2026, March 21). Wikibooks. https://en.wikibooks.org/wiki/LaTeX/Mathematics
 - **Pygame**
