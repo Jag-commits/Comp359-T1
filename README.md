@@ -32,8 +32,9 @@ All Configurable Features:
 - Number of Rows
 - Number of Columns
 - Number of Connected Regions
-- Random Statistical Variables (0 = standard, 1 = Vertical Corridors, 2 = Horizontal Corridors, 3 = Circular Pattern ( must have: Num Rows = Num Cols)
-
+- Random Statistical Variables (0 = standard, 1 = Vertical Corridors, 2 = Horizontal Corridors, 3 = Circular Pattern (Must be an nxn maze)
+- Print node unions
+  
 The GUI interface allows you to access the following:
 - Number of Rows
 - Number of Columns
@@ -41,7 +42,9 @@ The GUI interface allows you to access the following:
 
 To configure additional features use the following:
 
-`python3 .\main.py --rows {Configure} --cols {Configure} --components {Configure} --random {Options: 0, 1 , 2, 3} --verbose`
+`python3 .\main.py --ufClass {Configure} --rows {Configure} --cols {Configure} --components {Configure} --random {Options: 0,1,2,3} --verbose`
+
+Ex) `python3 .\main.py --ufClass PathCompression --rows 25 --cols 25 --components 1 --random 0`
 
 View All Feature Descriptions: `python3 .\main.py --h`
 
