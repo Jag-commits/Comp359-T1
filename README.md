@@ -131,7 +131,7 @@ $$P(X = W_i) =
 - Alexander:
 - Jacob: All logs shown in Log Folder
 - Jagpreet: https://www.youtube.com/watch?v=ddr8Ht8NS5U (Check Description for Timestamps)
-- Natasha
+- Natasha: Logs in Log Folder
 
 
 
@@ -143,3 +143,4 @@ $$P(X = W_i) =
 - WilliamFiset. (2017, April 7). Union Find Path Compression. Youtube https://www.youtube.com/watch?v=VHRhJWacxis
 - LaTeX/Mathematics. (2026, March 21). Wikibooks. https://en.wikibooks.org/wiki/LaTeX/Mathematics
 - **Pygame**
+- take U forward. (2022, October 22). Disjoint Set | Union by Rank | Union by Size | Path Compression. YouTube. https://youtu.be/aBxjDBC4M1U?si=iwJjPUffQIsgTJ7L
