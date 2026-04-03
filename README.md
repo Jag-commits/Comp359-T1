@@ -128,7 +128,7 @@ $$P(X = W_i) =
 *see logs folder for development screenshots*
 - Brayden: https://youtu.be/QOmA8hE1Sko
 - Joel: https://youtu.be/K4kGVkSzDbY
-- Alexander:
+- Alexander: https://youtu.be/J-dTH17Fcxo
 - Jacob: All logs shown in Log Folder
 - Jagpreet: https://www.youtube.com/watch?v=ddr8Ht8NS5U (Check Description for Timestamps)
 - Natasha: Logs in Log Folder
