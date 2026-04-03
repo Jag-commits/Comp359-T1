@@ -116,7 +116,7 @@ $$P(X = W_i) =
 
 # Work Logs
 *see logs folder for development screenshots*
-- Brayden:
+- Brayden: https://youtu.be/QOmA8hE1Sko
 - Joel: https://youtu.be/K4kGVkSzDbY
 - Alexander:
 - Jacob:
