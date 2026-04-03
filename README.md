@@ -79,6 +79,8 @@ To solve the generated maze, an A* search algorithm was implemented, and its sol
 
 ## Random Statistical Variables
 
+Random Stastical Variables are used to influence the probability of opening particular walls between nodes when generating the maze.
+
 Walls are defined as the following: North = 0, South = 1, East = 2, West = 3.
 
 #### 0) Standard:               
@@ -89,7 +91,7 @@ $X = \\{0, 1, 2 ,3\\}$
 |---|---|---|---|---|
 | P(X=x) | 0.25 | 0.25 | 0.25 | 0.25 |
 
-#### 1) Vertical Cooridors:
+#### 1) Vertical Corridors:
 
 $X = \\{0, 1, 2 ,3\\}$
 
@@ -97,7 +99,7 @@ $X = \\{0, 1, 2 ,3\\}$
 |---|---|---|---|---|
 | P(X=x) | 0.375 | 0.375 | 0.125 | 0.125 |
 
-#### 2) Horizontal Cooridors:
+#### 2) Horizontal Corridors:
 
 $X = \\{0, 1, 2 ,3\\}$
 
