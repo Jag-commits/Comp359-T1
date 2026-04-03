@@ -60,6 +60,8 @@ View All Feature Descriptions: `python3 .\main.py --h`
 
 Team Planning Files: https://drive.google.com/drive/folders/1D0Zv-jDg2stmmtaUT6hYRIS_4WbXMhoC?usp=sharing
 
+*Our team divided and organized work using a shared Google Doc, and we used Discord to communicate/document task progress.
+
 # Results
 We implemented four UnionFind algorithms in Python (Quick Find, Quick Union, Path Compression, Union by Rank) and compared the efficiency of each operation across multiple input sizes:
 
@@ -76,10 +78,19 @@ As we would expect the more complex impementations of Path Compression and Union
 Using the UnionFind implementation, we created a random maze algorithm, visualized with PyGame, which generates a unique maze at runtime. When generated with one component, all spaces in the maze are part of one subset, and there is a path between any two grid cells.
 
 To solve the generated maze, an A* search algorithm was implemented, and its solution is displayed over the generated maze
+## Analysis Framework
 
+The time complexity for each of the Union Find implementations are the following:
+
+- Quick Union: Find O(N), Union O(N)
+- Quick Find: Find O(1), Union O(N)
+- Union by Rank: O(log N)
+- Path Compression: Average Time taken/Amortized O(a(N)), where a = Inverse Ackermann Function
+
+The theoretical expectations aligned with our results. Path Compression and Union by Rank performed substantially better with both Union and Find operations, especially with larger input sizes.
 ## Random Statistical Variables
 
-Random Stastical Variables are used to influence the probability of opening particular walls between nodes when generating the maze.
+Random Statistical Variables are used to influence the probability of opening particular walls between nodes when generating the maze.
 
 Walls are defined as the following: North = 0, South = 1, East = 2, West = 3.
 
