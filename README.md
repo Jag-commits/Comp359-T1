@@ -65,6 +65,14 @@ We implemented four UnionFind algorithms in Python (Quick Find, Quick Union, Pat
 
 We also created another implementation of quick find in Java and compared the efficiency differences between languages:
 
+The results of these efficiency tests are shown in the graphs below:
+<img width="2942" height="1975" alt="COMP359Project3_SmallDataTest" src="https://github.com/user-attachments/assets/86ebd0c2-9753-4488-9002-7251c1dfd502" />
+<img width="2484" height="1943" alt="COMP359Project3_MediumDataTest" src="https://github.com/user-attachments/assets/2d8329ac-6863-487a-97bf-926dde54513e" />
+<img width="2516" height="1938" alt="COMP359Project3_LargeDataTest" src="https://github.com/user-attachments/assets/09968e8b-378f-4d84-a7e0-8343301706ac" />
+<img width="2461" height="1934" alt="COMP359Project3_ChainedDataTest" src="https://github.com/user-attachments/assets/125bbc37-3a64-42a9-bc50-2508149480e7" />
+
+As we would expect the more complex impementations of Path Compression and Union By Rank are vastly more efficient when it comes to both the Union and find operations when compared to the simpler Quick Union and Quick Find implementations. Although the simpler implementations are comparable when it comes to their specified operation as a whole they are not as practical as the others. This speed by Path Compression and Union By Rank comes from the work they do to reorder the trees into more manageable systems. These reordered trees are far easier to union and faster to locate nodes than leaving the trees as they began. As shown in the graphs when the amount of inputs in the trees is increased the gap of the simpler to more complex implementations only grow.
+
 Using the UnionFind implementation, we created a random maze algorithm, visualized with PyGame, which generates a unique maze at runtime. When generated with one component, all spaces in the maze are part of one subset, and there is a path between any two grid cells.
 
 To solve the generated maze, an A* search algorithm was implemented, and its solution is displayed over the generated maze
@@ -119,7 +127,7 @@ $$P(X = W_i) =
 - Brayden: https://youtu.be/QOmA8hE1Sko
 - Joel: https://youtu.be/K4kGVkSzDbY
 - Alexander:
-- Jacob:
+- Jacob: All logs shown in Log Folder
 - Jagpreet: https://www.youtube.com/watch?v=ddr8Ht8NS5U (Check Description for Timestamps)
 - Natasha
 
