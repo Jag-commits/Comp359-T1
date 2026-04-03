@@ -108,7 +108,7 @@ def checkEdge(currentNode, x,y, columnlength, rowlength): #y is row, x is col
 
 
 #ufClass = Class Name of implementation, n= selecting randomized variable, c = connected regions, x = width, y = length
-#n=1: 70% chance of opening vertical walls, 30% chance or horizontal walls, n=2 the opposite of n=1, n=3 (restarting on this one, bernouli won't work since we still need x # of connected regions)
+#n=1: 75% chance of opening vertical walls, 25% chance or horizontal walls, n=2 the opposite of n=1, n=3 85% chance of opening the wall closest to the center, 5% for every other direction
 def buildGraph(ufClass, n=0, c=int,x=int, y=int, verbose=False):
     numBoxes = x*y 
     connectedRegions = numBoxes
